@@ -43,5 +43,71 @@ app.get('/query', function (req, res) {
   });
 });
 
+app.get('/query/boost', function (req, res) {
+  var query = req.query.q;
+  client.search({
+                  index: 'programdatatv',
+                  // type: 'tv',
+                  body: {
+                    query: {
+                      match: {
+                        title: query
+                      }
+                    }
+                  }
+                }).then(function (body) {
+    var hits = body.hits.hits;
+    res.json(hits);
+  }, function (error) {
+    console.trace(error.message);
+    res.json(error);
+  });
+});
+
+app.get('/query/personalized', function (req, res) {
+  var query = req.query.q;
+  var user_id = req.query.user_id;
+  client.search({index: 'programdatatv',
+                  // type: 'tv',
+                  body: {
+                  "query": {
+                    "bool": {
+                      "must": {
+                        "terms": {
+                          "categories": {
+                            "index": "bruksdata",
+                            "type": "_doc",
+                            "id": user_id,
+                            "path": "interests.category"
+                          }
+                        }
+                      },
+                      "should": [{
+                        "match": {
+                          "title": {
+                            "query": query,
+                            "boost": 1.05
+                          }
+                        }
+                      },
+                        {
+                          "match": {
+                            "titledescription": {
+                              "query": query,
+                              "boost": 1.2
+                            }
+                          }
+                        }]
+                    }
+                  }
+                }}).then(function (body) {
+    var hits = body.hits.hits;
+    res.json(hits);
+  }, function (error) {
+    console.trace(error.message);
+    res.json(error);
+  });
+});
+
 const port = process.env.PORT || 9201;
 app.listen(port, () => console.log(`Listening on port ${port}`));
