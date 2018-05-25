@@ -84,37 +84,38 @@ app.get('/query/personalized', function (req, res) {
   client.search({index: 'programdatatv',
                   // type: 'tv',
                   body: {
-                  "query": {
-                    "bool": {
-                      "must": {
-                        "terms": {
-                          "categories": {
-                            "index": "bruksdata",
-                            "type": "_doc",
-                            "id": user_id,
-                            "path": "interests.category"
-                          }
-                        }
-                      },
-                      "should": [{
-                        "match": {
-                          "title": {
-                            "query": query,
-                            "boost": 1.05
-                          }
-                        }
-                      },
-                        {
-                          "match": {
-                            "titledescription": {
-                              "query": query,
-                              "boost": 1.2
+                    "query": {
+                      "bool": {
+                        "must": {
+                          "terms": {
+                            "categories": {
+                              "index": "bruksdata",
+                              "type": "_doc",
+                              "id": user_id,
+                              "path": "interests.category",
+                              "boost":2
                             }
                           }
-                        }]
+                        },
+                        "should": [{
+                          "match": {
+                            "title": {
+                              "query": query,
+                              "boost": 1
+                            }
+                          }
+                        },
+                          {
+                            "match": {
+                              "titledescription": {
+                                "query": query,
+                                "boost": 1
+                              }
+                            }
+                          }]
+                      }
                     }
-                  }
-                }}).then(function (body) {
+                  }}).then(function (body) {
     var hits = body.hits.hits;
     res.json(hits);
   }, function (error) {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import SearchResult from "./SearchResult";
 
-class BoostSearch extends Component {
+class PersonalizedSearch extends Component {
   state = {
     hits: [{"_source": {"title": "-empty-", "categories":["livsstil","natur","NRK-arkivet"]}}],
   };
@@ -34,7 +34,7 @@ class BoostSearch extends Component {
     return (
       <div>
         <p className="App-intro">
-          Boosted search
+          Personalized search
         </p>
         <form>
           <input
@@ -42,12 +42,12 @@ class BoostSearch extends Component {
             ref={input => this.search = input}
             onChange={this.handleInputChange}
           />
-          Boost category:
+          User id:
           <input
-            placeholder="dokumentar"
+            placeholder="Userid ..."
             ref={input => this.category = input}
             onChange={this.handleInputChange}
-          />
+          />DQA780jMlebl/opf1mWC0et5VJU=
           {/*<p>{this.state.query}</p>*/}
           <SearchResult hits={this.state.hits}/>
         </form>
@@ -56,4 +56,4 @@ class BoostSearch extends Component {
   }
 }
 
-export default BoostSearch
+export default PersonalizedSearch

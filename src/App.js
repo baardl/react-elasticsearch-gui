@@ -4,6 +4,7 @@ import logo from './elastic-logo-V-full color.png';
 import './App.css';
 import Search from "./search/Search";
 import BoostSearch from "./search/BoostSearch";
+import PersonalizedSearch from "./search/PersonalizedSearch";
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Search}/>
           <Route exact path='/boost' component={BoostSearch}/>
+          <Route exact path='/personalized' component={PersonalizedSearch}/>
         </Switch>
       </div>
     );
