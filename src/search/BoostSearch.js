@@ -6,8 +6,11 @@ class Search extends Component {
     hits: [{"_source": {"title": "-empty-", "categories":["livsstil","natur","NRK-arkivet"]}}],
   };
 
+
   handleInputChange = async () => {
-    const url = '/query?q=' + this.search.value;
+    const encodedQuery = encodeURIComponent(this.search.value);
+    const encodedCategory = encodeURIComponent(this.category.value);
+    const url = `/query/boost?q=${encodedQuery}&category=${encodedCategory}`;
     const params = {};
     const response = await fetch(url, params);
 
@@ -27,29 +30,22 @@ class Search extends Component {
     return body;
   };
 
-  /*
-  handleInputChange = () => {
-    fetch('/query?q=' + this.search.value)
-      .then(function (body) {
-        this.setState({
-                     query: body
-                   })
-    }, function (error) {
-      console.error(error.message);
-    });
-  }
-  */
-
   render() {
     return (
       <div>
         <p className="App-intro">
-          Default search
+          Boosted search
         </p>
         <form>
           <input
             placeholder="Search for..."
             ref={input => this.search = input}
+            onChange={this.handleInputChange}
+          />
+          Boost category:
+          <input
+            placeholder="dokumentar"
+            ref={input => this.category = input}
             onChange={this.handleInputChange}
           />
           {/*<p>{this.state.query}</p>*/}
