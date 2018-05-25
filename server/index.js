@@ -45,13 +45,27 @@ app.get('/query', function (req, res) {
 
 app.get('/query/boost', function (req, res) {
   var query = req.query.q;
+  var category = req.query.category;
   client.search({
                   index: 'programdatatv',
                   // type: 'tv',
                   body: {
-                    query: {
-                      match: {
-                        title: query
+                    "query": {
+                      "bool": {
+                        "should": [{
+                          "match": {
+                            "categories": {
+                              "query": category,
+                              "boost": "2"
+                            }
+                          }
+                        }, {
+                          "match": {
+                            "title": {
+                              "query": query
+                            }
+                          }
+                        }]
                       }
                     }
                   }
