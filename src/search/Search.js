@@ -1,15 +1,16 @@
 import React, {Component} from 'react'
+import SearchResult from "./SearchResult";
 
 class Search extends Component {
   state = {
-    query: '',
+    hits: [{"_source": {"title": "-empty-", "categories":["livsstil","natur","NRK-arkivet"]}}],
   };
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ query: 'hei' }))
-      .catch(err => console.log(err));
-  };
+  // componentDidMount() {
+  //   this.callApi()
+  //     .then(res => this.setState({ hits: [{"title": "-empty-", "categories":["livsstil","natur","NRK-arkivet"]}] }))
+  //     .catch(err => console.log(err));
+  // };
 
   handleInputChange = async () => {
     const url = '/query?q=' + this.search.value;
@@ -18,7 +19,7 @@ class Search extends Component {
 
     var jsonBody =  await response.text();
     this.setState({
-                    query: jsonBody
+                    hits: JSON.parse(jsonBody)
                   })
   };
 
@@ -53,7 +54,8 @@ class Search extends Component {
           ref={input => this.search = input}
           onChange={this.handleInputChange}
         />
-        <p>{this.state.query}</p>
+        {/*<p>{this.state.query}</p>*/}
+        <SearchResult hits={this.state.hits}/>
       </form>
     )
   }
