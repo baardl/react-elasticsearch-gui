@@ -9,11 +9,18 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "server": "DEBUG=express:* node server/index.js",
+    "server": "DEBUG=express:*  node server/index.js",
+    "server-auto": "DEBUG=express:*  nodemon server/index.js",
+    "client": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently --kill-others-on-fail \"yarn server-auto\" \"yarn client\""
   },
-  "proxy": "http://localhost:9201"
+  "proxy": "http://localhost:9201/",
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.17.5"
+  }
 }

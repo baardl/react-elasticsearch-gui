@@ -18,9 +18,22 @@ app.get('/', function (req, res) {
     res.send('Hello World')
 });
 
+app.get('/api/hello', (req, res) => {
+  res.send({ express: 'Hello From Express' });
+});
+
 app.get('/query', function (req, res) {
+  var query = req.query.q;
   client.search({
-                  q: req.q
+                  index: 'programdatatv',
+                  // type: 'tv',
+                  body: {
+                    query: {
+                      match: {
+                        title: query
+                      }
+                    }
+                  }
                 }).then(function (body) {
     var hits = body.hits.hits;
     res.json(hits);
@@ -30,4 +43,5 @@ app.get('/query', function (req, res) {
   });
 });
 
-app.listen(9201)
+const port = process.env.PORT || 9201;
+app.listen(port, () => console.log(`Listening on port ${port}`));

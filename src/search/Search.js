@@ -1,23 +1,49 @@
 import React, {Component} from 'react'
-import elasticsearch from 'elasticsearch';
 
 class Search extends Component {
   state = {
     query: '',
   };
 
+  componentDidMount() {
+    this.callApi()
+      .then(res => this.setState({ query: 'hei' }))
+      .catch(err => console.log(err));
+  };
 
+  handleInputChange = async () => {
+    const url = '/query?q=' + this.search.value;
+    const params = {};
+    const response = await fetch(url, params);
+
+    var jsonBody =  await response.text();
+    this.setState({
+                    query: jsonBody
+                  })
+  };
+
+  callApi = async () => {
+    const response = await fetch('/api/hello');
+    const body = await response.text();
+    console.log("Response: ", body);
+
+    if (response.status !== 200) throw Error(body.message);
+
+    return body;
+  };
+
+  /*
   handleInputChange = () => {
-    this.client.search({
-                    q: this.search.value
-                  }).then(function (body) {
-      this.setState({
-                     query: body.hits.hits
+    fetch('/query?q=' + this.search.value)
+      .then(function (body) {
+        this.setState({
+                     query: body
                    })
     }, function (error) {
       console.error(error.message);
     });
   }
+  */
 
   render() {
     return (
