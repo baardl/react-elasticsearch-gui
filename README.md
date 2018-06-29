@@ -19,7 +19,16 @@ yarn start
 ```
 [Elasticsearch Simple GUI](http://localhost:3000/)
 
-### Reference
+## Searches
+
+* [Search](http://localhost:3000/search)
+* [Personalized term search](http://localhost:3000/personalized)
+
+## Elasticsearch documents
+
+* [bruksdata](http://localhost:3000/bruksdata)
+
+## Reference
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
