@@ -9,8 +9,10 @@ class PersonalizedSearch extends Component {
 
   handleInputChange = async () => {
     const encodedQuery = encodeURIComponent(this.search.value);
-    const encodedCategory = encodeURIComponent(this.category.value);
-    const url = `/query/boost?q=${encodedQuery}&category=${encodedCategory}`;
+    // const encodedCategory = encodeURIComponent(this.category.value);
+    const encodedUserId = encodeURIComponent(this.userid.value);
+    // const url = `/query/boost?q=${encodedQuery}&category=${encodedCategory}`;
+    const url = `/query/personalized?q=${encodedQuery}&user_id=${encodedUserId}`;
     const params = {};
     const response = await fetch(url, params);
 
@@ -45,7 +47,7 @@ class PersonalizedSearch extends Component {
           User id:
           <input
             placeholder="Userid ..."
-            ref={input => this.category = input}
+            ref={input => this.userid = input}
             onChange={this.handleInputChange}
           />DQA780jMlebl/opf1mWC0et5VJU=
           {/*<p>{this.state.query}</p>*/}

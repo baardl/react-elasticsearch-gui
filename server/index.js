@@ -92,8 +92,7 @@ app.get('/query/personalized', function (req, res) {
                               "index": "bruksdata",
                               "type": "_doc",
                               "id": user_id,
-                              "path": "interests.category",
-                              "boost":2
+                              "path": "categories"
                             }
                           }
                         },
