@@ -5,6 +5,7 @@ import './App.css';
 import Search from "./search/Search";
 import BoostSearch from "./search/BoostSearch";
 import PersonalizedSearch from "./search/PersonalizedSearch";
+import Bruksdata from "./bruksdata/Bruksdata";
 
 class App extends Component {
   render() {
@@ -18,11 +19,13 @@ class App extends Component {
           <li><Link to="/search">Search</Link></li>
           <li><Link to="/boost">Boost search</Link></li>
           <li><Link to="/personalized">Personalized term search</Link></li>
+          <li><Link to="/bruksdata">Bruksdata</Link></li>
         </ul>
         <Switch>
           <Route exact path='/search' component={Search}/>
           <Route exact path='/boost' component={BoostSearch}/>
           <Route exact path='/personalized' component={PersonalizedSearch}/>
+          <Route exact path='/bruksdata' component={Bruksdata}/>
         </Switch>
       </div>
     );

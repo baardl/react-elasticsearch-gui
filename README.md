@@ -24,9 +24,13 @@ yarn start
 * [Search](http://localhost:3000/search)
 * [Personalized term search](http://localhost:3000/personalized)
 
+Recomend to search for "fjell", and userid "DQA780jMlebl/opf1mWC0et5VJU="
+
 ## Elasticsearch documents
 
 * [bruksdata](http://localhost:3000/bruksdata)
+
+
 
 ## Reference
 

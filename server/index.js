@@ -123,5 +123,28 @@ app.get('/query/personalized', function (req, res) {
   });
 });
 
+app.get('/bruksdata', function (req, res) {
+  const user_id = req.query.user_id;
+  console.trace("Find bruksdata: ", user_id);
+  client.search({
+                  index: 'bruksdata',
+                  // type: 'tv',
+                  body: {
+                    query: {
+                      query_string: {
+                        query: user_id,
+                        fields: ["user_id"]
+                      }
+                    }
+                  }
+                }).then(function (body) {
+    var hits = body.hits.hits;
+    res.json(hits);
+  }, function (error) {
+    console.trace(error.message);
+    res.json(error);
+  });
+});
+
 const port = process.env.PORT || 9201;
 app.listen(port, () => console.log(`Listening on port ${port}`));
