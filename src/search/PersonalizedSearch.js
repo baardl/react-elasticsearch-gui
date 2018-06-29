@@ -9,9 +9,7 @@ class PersonalizedSearch extends Component {
 
   handleInputChange = async () => {
     const encodedQuery = encodeURIComponent(this.search.value);
-    // const encodedCategory = encodeURIComponent(this.category.value);
     const encodedUserId = encodeURIComponent(this.userid.value);
-    // const url = `/query/boost?q=${encodedQuery}&category=${encodedCategory}`;
     const url = `/query/personalized?q=${encodedQuery}&user_id=${encodedUserId}`;
     const params = {};
     const response = await fetch(url, params);
